@@ -18,12 +18,12 @@ class MyTopo(Topo):
         s3 = self.addSwitch('s3')
         s4 = self.addSwitch('s4')
         s5 = self.addSwitch('s5')
-        h1 = self.addHost('h1')
-        h2 = self.addHost('h2')
-        h3 = self.addHost('h3')
-        h4 = self.addHost('h4')
-        h5 = self.addHost('h5')
-        h6 = self.addHost('h6')
+        h1 = self.addHost('h1', inNamespace=True)
+        h2 = self.addHost('h2', inNamespace=True)
+        h3 = self.addHost('h3', inNamespace=True)
+        h4 = self.addHost('h4', inNamespace=True)
+        h5 = self.addHost('h5', inNamespace=True)
+        h6 = self.addHost('h6', inNamespace=True)
 
         self.addLink(h1, s1)
         self.addLink(h2, s1)
@@ -43,7 +43,7 @@ def runNetwork():
     # mininet topology initialization
     topo = MyTopo()
 
-    net = Mininet(topo=topo, host=CPULimitedHost, link=TCLink, autoSetMacs=True, inNamespace=True)
+    net = Mininet(topo=topo, host=CPULimitedHost, link=TCLink, autoSetMacs=True)
     my_controller = RemoteController('co', ip='127.0.0.1', port=6653)
     net.addController(my_controller)
 
