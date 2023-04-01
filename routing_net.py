@@ -1,50 +1,43 @@
-from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.node import CPULimitedHost
 from mininet.link import TCLink
 from mininet.util import dumpNodeConnections
 from mininet.log import setLogLevel
 from mininet.cli import CLI
-from functools import partial
 from mininet.node import RemoteController
-
-
-class MyTopo(Topo):
-    # create topology
-    def __init__(self):
-        Topo.__init__(self)
-        s1 = self.addSwitch('s1')
-        s2 = self.addSwitch('s2')
-        s3 = self.addSwitch('s3')
-        s4 = self.addSwitch('s4')
-        s5 = self.addSwitch('s5')
-        h1 = self.addHost('h1', inNamespace=True)
-        h2 = self.addHost('h2', inNamespace=True)
-        h3 = self.addHost('h3', inNamespace=True)
-        h4 = self.addHost('h4', inNamespace=True)
-        h5 = self.addHost('h5', inNamespace=True)
-        h6 = self.addHost('h6', inNamespace=True)
-
-        self.addLink(h1, s1)
-        self.addLink(h2, s1)
-        self.addLink(h3, s1)
-        self.addLink(s1, s2, bw=1, delay='200ms', loss=0, max_queue_size=1000, use_htb=True)
-        self.addLink(s1, s3, bw=1, delay='50ms', loss=0, max_queue_size=1000, use_htb=True)
-        self.addLink(s1, s4, bw=1, delay='10ms', loss=0, max_queue_size=1000, use_htb=True)
-        self.addLink(s2, s5)
-        self.addLink(s3, s5)
-        self.addLink(s4, s5)
-        self.addLink(s5, h4)
-        self.addLink(s5, h5)
-        self.addLink(s5, h6)
 
 
 def runNetwork():
     # mininet topology initialization
-    topo = MyTopo()
 
     my_controller = RemoteController('c0', ip='127.0.0.1', port=6653)
-    net = Mininet(topo=topo, host=CPULimitedHost, link=TCLink, autoSetMacs=True, controller=my_controller)
+    net = Mininet(host=CPULimitedHost, link=TCLink, autoSetMacs=True, controller=my_controller)
+
+    # create topology
+    s1 = net.addSwitch('s1')
+    s2 = net.addSwitch('s2')
+    s3 = net.addSwitch('s3')
+    s4 = net.addSwitch('s4')
+    s5 = net.addSwitch('s5')
+    h1 = net.addHost('h1', inNamespace=True)
+    h2 = net.addHost('h2', inNamespace=True)
+    h3 = net.addHost('h3', inNamespace=True)
+    h4 = net.addHost('h4', inNamespace=True)
+    h5 = net.addHost('h5', inNamespace=True)
+    h6 = net.addHost('h6', inNamespace=True)
+
+    net.addLink(h1, s1)
+    net.addLink(h2, s1)
+    net.addLink(h3, s1)
+    net.addLink(s1, s2, bw=1, delay='200ms', loss=0, max_queue_size=1000, use_htb=True)
+    net.addLink(s1, s3, bw=1, delay='50ms', loss=0, max_queue_size=1000, use_htb=True)
+    net.addLink(s1, s4, bw=1, delay='10ms', loss=0, max_queue_size=1000, use_htb=True)
+    net.addLink(s2, s5)
+    net.addLink(s3, s5)
+    net.addLink(s4, s5)
+    net.addLink(s5, h4)
+    net.addLink(s5, h5)
+    net.addLink(s5, h6)
 
     net.start()
 
