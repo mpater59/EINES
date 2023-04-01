@@ -10,7 +10,7 @@ from mininet.node import RemoteController
 def runNetwork():
     # mininet topology initialization
 
-    my_controller = RemoteController('c0', ip='127.0.0.1', port=6653)
+    my_controller = RemoteController('c0', ip='127.0.0.1', port=6633)
     net = Mininet(host=CPULimitedHost, link=TCLink, autoSetMacs=True)
 
     # create topology
@@ -29,9 +29,9 @@ def runNetwork():
     net.addLink(h1, s1)
     net.addLink(h2, s1)
     net.addLink(h3, s1)
-    net.addLink(s1, s2, bw=1, delay='200ms', loss=0, max_queue_size=1000, use_htb=True)
-    net.addLink(s1, s3, bw=1, delay='50ms', loss=0, max_queue_size=1000, use_htb=True)
-    net.addLink(s1, s4, bw=1, delay='10ms', loss=0, max_queue_size=1000, use_htb=True)
+    net.addLink(s1, s2, bw=1, delay='200ms', loss=0, max_queue_size=1000)
+    net.addLink(s1, s3, bw=1, delay='50ms', loss=0, max_queue_size=1000)
+    net.addLink(s1, s4, bw=1, delay='10ms', loss=0, max_queue_size=1000)
     net.addLink(s2, s5)
     net.addLink(s3, s5)
     net.addLink(s4, s5)
