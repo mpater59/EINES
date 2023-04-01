@@ -11,7 +11,7 @@ def runNetwork():
     # mininet topology initialization
 
     my_controller = RemoteController('c0', ip='127.0.0.1', port=6653)
-    net = Mininet(host=CPULimitedHost, link=TCLink, autoSetMacs=True, controller=my_controller)
+    net = Mininet(host=CPULimitedHost, link=TCLink, autoSetMacs=True)
 
     # create topology
     s1 = net.addSwitch('s1')
@@ -38,6 +38,8 @@ def runNetwork():
     net.addLink(s5, h4)
     net.addLink(s5, h5)
     net.addLink(s5, h6)
+
+    net.addController(my_controller)
 
     net.start()
 
