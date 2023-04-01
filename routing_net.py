@@ -42,9 +42,11 @@ class MyTopo(Topo):
 def runNetwork():
     # mininet topology initialization
     topo = MyTopo()
+
+    net = Mininet(topo=topo, host=CPULimitedHost, link=TCLink, autoSetMacs=True, inNamespace=True)
     my_controller = RemoteController('co', ip='127.0.0.1', port=6653)
-    net = Mininet(topo=topo, host=CPULimitedHost, link=TCLink, autoSetMacs=True, inNamespace=True,
-                  controller=my_controller)
+    net.addController(my_controller)
+
     net.start()
 
     # Dumping host connections
