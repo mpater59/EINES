@@ -81,7 +81,6 @@ def runNetwork():
     dumpNodeConnections(net.hosts)
 
     thread.start_new_thread(change_delays, ())
-    thread.start_new_thread(testing_pings, ())
 
     CLI(net)  # launch simple Mininet CLI terminal window
     net.stop()
